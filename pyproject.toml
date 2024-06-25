@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "ml"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+llama-index = "^0.10.48.post1"
+llama-index-embeddings-ollama = "^0.1.2"
+llama-index-llms-ollama = "^0.1.5"
+llama-index-vector-stores-qdrant = "^0.2.10"
+fastapi = "^0.111.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
