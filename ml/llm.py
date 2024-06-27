@@ -1,12 +1,8 @@
 from llama_index.core import (
-    SimpleDirectoryReader,
     Settings,
-    StorageContext,
     VectorStoreIndex,
-    load_index_from_storage,
 )
 
-from llama_index.core.node_parser import SemanticSplitterNodeParser
 from llama_index.embeddings.ollama import OllamaEmbedding
 from llama_index.llms.ollama import Ollama
 from llama_index.vector_stores.qdrant import QdrantVectorStore
@@ -15,7 +11,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import nest_asyncio
 from pydantic import BaseModel
-from fastapi import FastAPI
 import uvicorn
 
 nest_asyncio.apply()
@@ -34,7 +29,7 @@ Settings.embed_model = OllamaEmbedding(
     # ollama_additional_kwargs={"mirostat": 0},
 )
 
-Settings.llm = Ollama(model="llama3", request_timeout=360.0)
+Settings.llm = Ollama(model="llama3-chatqa", request_timeout=360.0)
 
 # client = qdrant_client.QdrantClient(url="http://localhost:6333")
 # aclient = qdrant_client.AsyncQdrantClient(host="localhost", port=6333)
@@ -83,6 +78,7 @@ class InputData(BaseModel):
 async def put_llm_ans(data: InputData):
     plus_context = f"Отвечай на русском: {data.question}"
     output = {"answer": str(await query_engine.aquery(plus_context))}
+    # output = {"answer": str(async query_engine.aquery(plus_context, ))}
     return output
 
 

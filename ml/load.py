@@ -27,7 +27,9 @@ Settings.embed_model = OllamaEmbedding(
 Settings.llm = Ollama(model="llama3", request_timeout=360.0)
 
 
-documents = SimpleDirectoryReader("data", recursive=True).load_data(show_progress=True)
+documents = SimpleDirectoryReader("../data", recursive=True).load_data(
+    show_progress=True
+)
 
 Settings.node_parser = SemanticSplitterNodeParser(embed_model=Settings.embed_model)
 # nodes = parser.get_nodes_from_documents(documents)
