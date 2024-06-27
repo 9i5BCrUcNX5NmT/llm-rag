@@ -50,7 +50,7 @@ client = qdrant_client.QdrantClient()
 aclient = qdrant_client.AsyncQdrantClient()
 
 vector_store = QdrantVectorStore(
-    collection_name="my_collection",
+    collection_name="test1",
     client=client,
     aclient=aclient,
     enable_hybrid=True,
