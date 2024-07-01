@@ -1,2 +1,3 @@
 *.lock
 data/*
+__pycache__

@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import nest_asyncio
 from pydantic import BaseModel
 import uvicorn
+from ollama import AsyncClient
 
 nest_asyncio.apply()
 
@@ -25,11 +26,13 @@ nest_asyncio.apply()
 # )
 Settings.embed_model = OllamaEmbedding(
     base_url="http://127.0.0.1:11434",
-    model_name="nomic-embed-text",
+    model_name="all-minilm",
     # ollama_additional_kwargs={"mirostat": 0},
 )
 
-Settings.llm = Ollama(model="llama3-chatqa", request_timeout=360.0)
+Settings.llm = Ollama(
+    base_url="http://127.0.0.1:11434", model="llama3", request_timeout=360.0
+)
 
 # client = qdrant_client.QdrantClient(url="http://localhost:6333")
 # aclient = qdrant_client.AsyncQdrantClient(host="localhost", port=6333)
@@ -44,12 +47,21 @@ Settings.llm = Ollama(model="llama3-chatqa", request_timeout=360.0)
 client = qdrant_client.QdrantClient()
 aclient = qdrant_client.AsyncQdrantClient()
 
+client.set_sparse_model(
+    embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
+    providers=["CUDAExecutionProvider"],
+)
+aclient.set_sparse_model(
+    embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
+    providers=["CUDAExecutionProvider"],
+)
+
 vector_store = QdrantVectorStore(
-    collection_name="test1",
+    collection_name="Book",
     client=client,
     aclient=aclient,
     enable_hybrid=True,
-    batch_size=20,
+    # batch_size=20,
 )
 # storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
@@ -74,10 +86,28 @@ class InputData(BaseModel):
     question: str
 
 
+async def translate(first, second, text):
+    message = {
+        "role": "user",
+        "content": f"translate the following text from {first} to {second}:\n{text}\nРусский:",
+    }
+    translate = await AsyncClient().chat(
+        model="thinkverse/towerinstruct", messages=[message]
+    )
+
+    return translate["message"]["content"]
+
+
 @app.post("/api/llm/")
 async def put_llm_ans(data: InputData):
-    plus_context = f"Отвечай на русском: {data.question}"
-    output = {"answer": str(await query_engine.aquery(plus_context))}
+    # plus_context = f"{data.question} Ответ на русском:"
+    # eng_data = await translate("Русский", "English", data.question)
+    # print(eng_data)
+    aquery = await query_engine.aquery(data.question)
+    print(aquery)
+    ru_answer = await translate("English", "Русский", str(aquery))
+
+    output = {"answer": ru_answer}
     # output = {"answer": str(async query_engine.aquery(plus_context, ))}
     return output
 
