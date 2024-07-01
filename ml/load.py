@@ -14,22 +14,22 @@ import qdrant_client
 
 # nest_asyncio.apply()
 
+ollama_url = "http://127.0.0.1:11434"
+qdrant_url = "http://localhost:6333"
+# qdrant_url = "opossum-accurate-chipmunk.ngrok-free.app"
 
 # ollama
-base_url = "http://127.0.0.1:11434"
 
 Settings.embed_model = OllamaEmbedding(
-    base_url=base_url,
+    base_url=ollama_url,
     model_name="all-minilm",
     # ollama_additional_kwargs={"mirostat": 0},
 )
 
-Settings.llm = Ollama(
-    base_url="http://127.0.0.1:11434", model="llama3", request_timeout=360.0
-)
+Settings.llm = Ollama(base_url=ollama_url, model="llama3", request_timeout=360.0)
 
 
-documents = SimpleDirectoryReader("data\Книги\\", recursive=True).load_data(
+documents = SimpleDirectoryReader("data\Книги", recursive=True).load_data(
     show_progress=True
 )
 
@@ -37,8 +37,8 @@ Settings.node_parser = SemanticSplitterNodeParser(embed_model=Settings.embed_mod
 # nodes = parser.get_nodes_from_documents(documents)
 
 
-client = qdrant_client.QdrantClient(url="http://localhost:6333")
-aclient = qdrant_client.AsyncQdrantClient(url="http://localhost:6333")
+client = qdrant_client.QdrantClient(url=qdrant_url)
+aclient = qdrant_client.AsyncQdrantClient(url=qdrant_url)
 
 
 # client.set_model(
@@ -58,14 +58,12 @@ aclient.set_sparse_model(
     providers=["CUDAExecutionProvider"],
 )
 
-Settings.chunk_size = 512
-
 
 vector_store = QdrantVectorStore(
     collection_name="Book",
     client=client,
     aclient=aclient,
-    enable_hybrid=True,
+    # enable_hybrid=True,
     # batch_size=20,
 )
 
