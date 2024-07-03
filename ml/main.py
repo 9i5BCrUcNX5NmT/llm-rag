@@ -5,7 +5,7 @@ api = "https://opossum-accurate-chipmunk.ngrok-free.app"
 url = f"{api}/api/llm/"
 data = {
     "question": """
-В чём смысл python?
+Что делал медведь во сне Татьяны?
 """
 }
 

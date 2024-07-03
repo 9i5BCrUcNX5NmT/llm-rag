@@ -17,58 +17,41 @@ from ollama import AsyncClient
 nest_asyncio.apply()
 
 
-# documents = SimpleDirectoryReader("data", recursive=True).load_data()
-
 # ollama
-# Settings.embed_model = OllamaEmbedding(
-#     base_url="http://127.0.0.1:11434",
-#     model_name="nomic-embed-text",
-# )
 Settings.embed_model = OllamaEmbedding(
     base_url="http://127.0.0.1:11434",
-    model_name="all-minilm",
+    model_name="rjmalagon/gte-qwen2-1.5b-instruct-embed-f16",
     # ollama_additional_kwargs={"mirostat": 0},
 )
 
 Settings.llm = Ollama(
-    base_url="http://127.0.0.1:11434", model="llama3", request_timeout=360.0
+    base_url="http://127.0.0.1:11434", model="gemma2", request_timeout=360.0
 )
-
-# client = qdrant_client.QdrantClient(url="http://localhost:6333")
-# aclient = qdrant_client.AsyncQdrantClient(host="localhost", port=6333)
-
-# vector_store = QdrantVectorStore(client=client, aclient=aclient, collection_name="my_collection", enable_hybrid=True, batch_size=20)
-# storage_context = StorageContext.from_defaults(vector_store=vector_store)
-
-# splitter = SemanticSplitterNodeParser(embed_model=Settings.embed_model)
-# nodes = splitter.get_nodes_from_documents(documents)
-# Settings.chunk_size = 512
 
 client = qdrant_client.QdrantClient()
 aclient = qdrant_client.AsyncQdrantClient()
 
-client.set_sparse_model(
-    embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
-    providers=["CUDAExecutionProvider"],
-)
-aclient.set_sparse_model(
-    embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
-    providers=["CUDAExecutionProvider"],
-)
+# client.set_sparse_model(
+#     embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
+#     providers=["CUDAExecutionProvider"],
+# )
+# aclient.set_sparse_model(
+#     embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
+#     providers=["CUDAExecutionProvider"],
+# )
 
 vector_store = QdrantVectorStore(
     collection_name="Book",
     client=client,
     aclient=aclient,
-    enable_hybrid=True,
+    # enable_hybrid=True,
     # batch_size=20,
 )
-# storage_context = StorageContext.from_defaults(vector_store=vector_store)
 
 vector_index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
 
-# query_engine = index.as_query_engine()
-query_engine = vector_index.as_query_engine(similarity_top_k=2, sparse_top_k=12)
+# similarity_top_k=2, sparse_top_k=12
+query_engine = vector_index.as_query_engine()
 
 
 app = FastAPI()

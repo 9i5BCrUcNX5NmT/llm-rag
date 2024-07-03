@@ -1,3 +1,4 @@
 *.lock
 data/*
 __pycache__
+1.ipynb

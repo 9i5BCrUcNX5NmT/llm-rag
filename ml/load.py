@@ -22,7 +22,7 @@ qdrant_url = "http://localhost:6333"
 
 Settings.embed_model = OllamaEmbedding(
     base_url=ollama_url,
-    model_name="all-minilm",
+    model_name="rjmalagon/gte-qwen2-1.5b-instruct-embed-f16",
     # ollama_additional_kwargs={"mirostat": 0},
 )
 
@@ -33,36 +33,28 @@ documents = SimpleDirectoryReader("data\Книги", recursive=True).load_data(
     show_progress=True
 )
 
-Settings.node_parser = SemanticSplitterNodeParser(embed_model=Settings.embed_model)
+# Settings.node_parser = SemanticSplitterNodeParser(embed_model=Settings.embed_model)
 # nodes = parser.get_nodes_from_documents(documents)
 
 
 client = qdrant_client.QdrantClient(url=qdrant_url)
-aclient = qdrant_client.AsyncQdrantClient(url=qdrant_url)
+# aclient = qdrant_client.AsyncQdrantClient(url=qdrant_url)
 
 
-# client.set_model(
-#     embedding_model_name="sentence-transformers/all-MiniLM-L6-v2",
+# client.set_sparse_model(
+#     embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
 #     providers=["CUDAExecutionProvider"],
 # )
-client.set_sparse_model(
-    embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
-    providers=["CUDAExecutionProvider"],
-)
-# aclient.set_model(
-#     embedding_model_name="sentence-transformers/all-MiniLM-L6-v2",
+# aclient.set_sparse_model(
+#     embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
 #     providers=["CUDAExecutionProvider"],
 # )
-aclient.set_sparse_model(
-    embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
-    providers=["CUDAExecutionProvider"],
-)
 
 
 vector_store = QdrantVectorStore(
-    collection_name="Book",
+    collection_name="test2",
     client=client,
-    aclient=aclient,
+    # aclient=aclient,
     # enable_hybrid=True,
     # batch_size=20,
 )
