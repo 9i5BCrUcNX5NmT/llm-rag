@@ -8,6 +8,7 @@ import nest_asyncio
 from pydantic import BaseModel
 import uvicorn
 import settings
+import lib
 
 settings.init()
 nest_asyncio.apply()
@@ -33,27 +34,12 @@ class InputData(BaseModel):
     question: str
 
 
-# async def translate(first, second, text):
-#     message = {
-#         "role": "user",
-#         "content": f"Переведи следующий текст с {first} на {second}:\n{text}\n",
-#     }
-#     translate = await AsyncClient().chat(
-#         model="thinkverse/towerinstruct", messages=[message]
-#     )
-
-#     return translate["message"]["content"]
-
-
 @app.post("/api/llm/")
 async def put_llm_ans(data: InputData):
-    # plus_context = f"{data.question} Ответ на русском:"
-    # eng_data = await translate("Русский", "English", data.question)
     aquery = await query_engine.aquery(data.question)
-    # ru_answer = await translate("English", "Русский", str(aquery))
+    ru_answer = await lib.translate("English", "Русский", str(aquery))
 
-    output = {"answer": str(aquery)}
-    # output = {"answer": str(async query_engine.aquery(plus_context, ))}
+    output = {"answer": ru_answer}
     return output
 
 
