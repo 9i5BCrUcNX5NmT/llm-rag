@@ -4,62 +4,23 @@ from llama_index.core import (
     StorageContext,
     VectorStoreIndex,
 )
-from llama_index.core.node_parser import SemanticSplitterNodeParser
-from llama_index.embeddings.ollama import OllamaEmbedding
-from llama_index.llms.ollama import Ollama
-from llama_index.vector_stores.qdrant import QdrantVectorStore
-import qdrant_client
+import settings
 
-# import nest_asyncio
+settings.init()
 
-# nest_asyncio.apply()
+Settings.embed_model = settings.embed_model
+Settings.llm = settings.llm_model
 
-ollama_url = "http://127.0.0.1:11434"
-qdrant_url = "http://localhost:6333"
-# qdrant_url = "opossum-accurate-chipmunk.ngrok-free.app"
-
-# ollama
-
-Settings.embed_model = OllamaEmbedding(
-    base_url=ollama_url,
-    model_name="rjmalagon/gte-qwen2-1.5b-instruct-embed-f16",
-    # ollama_additional_kwargs={"mirostat": 0},
-)
-
-Settings.llm = Ollama(base_url=ollama_url, model="llama3", request_timeout=360.0)
-
-
-documents = SimpleDirectoryReader("data\Книги", recursive=True).load_data(
+data_dir = "data\Книги"
+documents = SimpleDirectoryReader(data_dir, recursive=True).load_data(
     show_progress=True
 )
 
+# from llama_index.core.node_parser import SemanticSplitterNodeParser
 # Settings.node_parser = SemanticSplitterNodeParser(embed_model=Settings.embed_model)
 # nodes = parser.get_nodes_from_documents(documents)
 
-
-client = qdrant_client.QdrantClient(url=qdrant_url)
-# aclient = qdrant_client.AsyncQdrantClient(url=qdrant_url)
-
-
-# client.set_sparse_model(
-#     embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
-#     providers=["CUDAExecutionProvider"],
-# )
-# aclient.set_sparse_model(
-#     embedding_model_name="Qdrant/bm42-all-minilm-l6-v2-attentions",
-#     providers=["CUDAExecutionProvider"],
-# )
-
-
-vector_store = QdrantVectorStore(
-    collection_name="test2",
-    client=client,
-    # aclient=aclient,
-    # enable_hybrid=True,
-    # batch_size=20,
-)
-
-storage_context = StorageContext.from_defaults(vector_store=vector_store)
+storage_context = StorageContext.from_defaults(vector_store=settings.vector_store)
 
 # Добавление в qdrant
 vector_index = VectorStoreIndex.from_documents(
