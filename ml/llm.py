@@ -72,7 +72,7 @@ class InputData(BaseModel):
 async def translate(first, second, text):
     message = {
         "role": "user",
-        "content": f"translate the following text from {first} to {second}:\n{text}\nРусский:",
+        "content": f"Переведи следующий текст с {first} на {second}:\n{text}\n",
     }
     translate = await AsyncClient().chat(
         model="thinkverse/towerinstruct", messages=[message]
