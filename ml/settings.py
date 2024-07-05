@@ -1,7 +1,17 @@
 def init():
+    import os
+
     # vars
-    ollama_url = "http://127.0.0.1:11434"
-    qdrant_url = "http://localhost:6333"
+    ollama_url = (
+        "http://localhost:11434"
+        if not os.environ.get("OLLAMA_URL")
+        else os.environ.get("OLLAMA_URL")
+    )
+    qdrant_url = (
+        "http://localhost:6333"
+        if not os.environ.get("QDRANT_URL")
+        else os.environ.get("QDRANT_URL")
+    )
     # qdrant_url = "opossum-accurate-chipmunk.ngrok-free.app"
     collection_name = "test2"
     llm_model_name = "gemma2"
