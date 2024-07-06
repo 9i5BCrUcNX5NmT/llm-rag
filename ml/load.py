@@ -11,7 +11,7 @@ settings.init()
 Settings.embed_model = settings.embed_model
 Settings.llm = settings.llm_model
 
-data_dir = "data\\train_data_VK"
+data_dir = "data"
 documents = SimpleDirectoryReader(data_dir, recursive=True).load_data(
     show_progress=True
 )
