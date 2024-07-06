@@ -14,7 +14,7 @@ def init():
     )
     # qdrant_url = "opossum-accurate-chipmunk.ngrok-free.app"
     collection_name = "Hack"
-    llm_model_name = "llama3-chatqa"
+    llm_model_name = "llama3"
     embed_model_name = "rjmalagon/gte-qwen2-1.5b-instruct-embed-f16"
 
     global embed_model, llm_model, vector_store
