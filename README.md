@@ -9,21 +9,22 @@
 - React
 - Typescript
 - Axios
-  
-## Поддержка GPU вычислений
-### Nvidia
+
+## Установка
+### Поддержка GPU вычислений
+#### Nvidia
 Ставим [cuda](https://developer.nvidia.com/cuda-toolkit)
-### AMD
+#### AMD
 Ставим ROCM
 P.S. Поддержка ollama rocm пока в стадии разработки
 
-## docker
-### Windows
+### docker
+#### Windows
 Установка docker-desctop или docker в wsl
-### Linux
+#### Linux
 Установка docker
 
-## Ollama
+### Ollama
 [Скачать](https://ollama.com/download)
 
 Установить 3 используемые модели:
@@ -32,7 +33,7 @@ P.S. Поддержка ollama rocm пока в стадии разработк�
 - thinkverse/towerinstruct - для перевода
 P.S. при желании установка ollama в docker
 
-## Запуск qdrant в docker
+### Запуск qdrant в docker
 ```bash
 docker run -p 6333:6333 -p 6334:6334 -d --restart always -v ~/qdrant_storage:/qdrant/storage:z qdrant/qdrant
 ```
