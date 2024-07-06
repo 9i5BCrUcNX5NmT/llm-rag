@@ -7,7 +7,10 @@
 - fastapi
   
 ## Поддержка GPU вычислений
-Если есть видеокарта от nvidia, то ставим [cuda](https://developer.nvidia.com/cuda-toolkit)
+### Nvidia
+Ставим [cuda](https://developer.nvidia.com/cuda-toolkit)
+### AMD
+Ставим ROCM
 
 ## docker
 ### Windows
