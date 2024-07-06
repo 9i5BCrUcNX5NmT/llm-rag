@@ -58,6 +58,7 @@ python ./ml/load.py
 python ./ml/llm.py
 ```
 Бекенд запущен
+P.S. можно использовать ngrok для открытия туннеля к порту 8009 и соединить его с фронтом по адресу chat_ai/src/components/SendMessage.tsx(53 строчка)
 
 ## Установка фронтенда
 [Репозиторий фронтенда](https://github.com/Aspir01/chat_ai)
