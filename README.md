@@ -10,7 +10,8 @@
 - Typescript
 - Axios
 
-## Установка
+## Установка бекенда
+
 ### Поддержка GPU вычислений
 #### Nvidia
 Ставим [cuda](https://developer.nvidia.com/cuda-toolkit)
@@ -38,7 +39,42 @@ P.S. при желании установка ollama в docker
 docker run -p 6333:6333 -p 6334:6334 -d --restart always -v ~/qdrant_storage:/qdrant/storage:z qdrant/qdrant
 ```
 
-### 
+### Poetry
+Использовать мануал [poetry](https://python-poetry.org/docs/#installation)
+
+## Комманды для запуска
+### Бекенд
+```bash
+git clone https://github.com/9i5BCrUcNX5NmT/llm-rag
+cd llm-rag
+git submodule update --init
+poetry shell
+poetry install
+mkdir data
+```
+Поместить в data файлы для загрузки
+```bash
+python ./ml/load.py
+python ./ml/llm.py
+```
+Бекенд запущен
+
+## Установка бекенда
+### bun
+Установить с [официального сайта](https://bun.sh/)
+### Команды
+```bash
+cd chat_ai
+bun install
+```
+#### Для запуска
+```bash
+bun run start
+```
+#### Для сборки установщика
+```bash
+bun run build
+```
 
 ## TODO
 - общие переменные +
