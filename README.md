@@ -11,6 +11,7 @@
 Ставим [cuda](https://developer.nvidia.com/cuda-toolkit)
 ### AMD
 Ставим ROCM
+P.S. Поддержка ollama rocm пока в стадии разработки
 
 ## docker
 ### Windows
@@ -24,7 +25,7 @@
 - llama3-chatqa - для ответов
 - rjmalagon/gte-qwen2-1.5b-instruct-embed-f16 - для создания ембедингов
 - thinkverse/towerinstruct - для перевода
-P.S. при желании установка в docker
+P.S. при желании установка ollama в docker
 
 ## Запуск qdrant в docker
 ```bash
