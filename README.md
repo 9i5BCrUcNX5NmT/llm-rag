@@ -1,4 +1,27 @@
 # Репозиторий для хранения проекта ollama + llamaindex + qdrant + fastapi
+## Стек
+### Бекенд
+- ollama
+- llamaindex
+- qdrant
+- fastapi
+  
+## Поддержка GPU вычислений
+Если есть видеокарта от nvidia, то ставим [cuda](https://developer.nvidia.com/cuda-toolkit)
+
+## docker
+### Windows
+Установка docker-desctop или docker в wsl
+### Linux
+Установка docker
+
+## Ollama
+[Скачать](https://ollama.com/download)
+Установить 3 используемые модели:
+- llama3-chatqa - для ответов
+- rjmalagon/gte-qwen2-1.5b-instruct-embed-f16 - для создания ембедингов
+- thinkverse/towerinstruct - для перевода
+P.S. при желании установка в docker
 
 ## Запуск qdrant в docker
 ```bash
