@@ -13,8 +13,8 @@ def init():
         else os.environ.get("QDRANT_URL")
     )
     # qdrant_url = "opossum-accurate-chipmunk.ngrok-free.app"
-    collection_name = "test2"
-    llm_model_name = "gemma2"
+    collection_name = "Hack"
+    llm_model_name = "llama3-chatqa"
     embed_model_name = "rjmalagon/gte-qwen2-1.5b-instruct-embed-f16"
 
     global embed_model, llm_model, vector_store
