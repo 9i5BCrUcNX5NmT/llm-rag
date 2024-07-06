@@ -1,10 +1,14 @@
 # Репозиторий для хранения проекта ollama + llamaindex + qdrant + fastapi
 ## Стек
 ### Бекенд
-- ollama
-- llamaindex
-- qdrant
-- fastapi
+- Ollama
+- Llamaindex
+- Qdrant
+- Fastapi
+### Фронтенд
+- React
+- Typescript
+- Axios
   
 ## Поддержка GPU вычислений
 ### Nvidia
