@@ -1,0 +1,3 @@
+[submodule "chat_ai"]
+	path = chat_ai
+	url = https://github.com/Aspir01/chat_ai
