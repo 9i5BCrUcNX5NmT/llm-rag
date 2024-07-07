@@ -61,7 +61,6 @@ python ./ml/llm.py
 P.S. можно использовать ngrok для открытия туннеля к порту 8009 и соединить его с фронтом по адресу chat_ai/src/components/SendMessage.tsx(53 строчка)
 
 ## Установка фронтенда
-[Репозиторий фронтенда](https://github.com/Aspir01/chat_ai)
 ### bun
 Установить с [официального сайта](https://bun.sh/)
 ### Команды
@@ -77,6 +76,13 @@ bun run start
 ```bash
 bun run build
 ```
+
+## Парвсер
+запускается при наличии библиотеки bs4
+```bash
+python ./DigitalKawkaz/parser_rustore.py
+```
+парсит документацию рустора в markdown файл для лучшего понимания моделями
 
 ## TODO
 - общие переменные +
