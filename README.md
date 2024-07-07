@@ -80,7 +80,7 @@ bun run start
 bun run build
 ```
 
-## Парвсер
+## Парсер
 запускается при наличии библиотеки bs4
 ```bash
 python ./DigitalKawkaz/parser_rustore.py
