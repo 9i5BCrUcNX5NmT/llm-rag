@@ -1,7 +1,8 @@
 async def translate(first, second, text):
     from ollama import AsyncClient
+    import os
 
-    translate_model_name = "thinkverse/towerinstruct"
+    translate_model_name = os.environ.get("OLLAMA_TRANSLATE")
 
     message = {
         "role": "user",

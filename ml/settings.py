@@ -3,19 +3,17 @@ def init():
 
     # vars
     ollama_url = (
-        "http://localhost:11434"
-        if not os.environ.get("OLLAMA_URL")
-        else os.environ.get("OLLAMA_URL")
+        # "http://localhost:11434"
+        "https://" + os.environ.get("OLLAMA_URL")
     )
     qdrant_url = (
-        "http://localhost:6333"
-        if not os.environ.get("QDRANT_URL")
-        else os.environ.get("QDRANT_URL")
+        # "http://localhost:6333"
+        "https://" + os.environ.get("QDRANT_URL")
     )
     # qdrant_url = "opossum-accurate-chipmunk.ngrok-free.app"
     collection_name = "Hack"
-    llm_model_name = "llama3"
-    embed_model_name = "rjmalagon/gte-qwen2-1.5b-instruct-embed-f16"
+    llm_model_name = os.environ.get("OLLAMA_LLM")
+    embed_model_name = os.environ.get("OLLAMA_EMBEDDING")
 
     global embed_model, llm_model, vector_store
 

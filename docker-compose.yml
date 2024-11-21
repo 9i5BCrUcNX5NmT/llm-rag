@@ -1,0 +1,43 @@
+networks:
+  my-net:
+
+services:
+  qdrant:
+    image: qdrant/qdrant
+    ports:
+      - '6333:6333'
+    volumes:
+      - ./qdrant_data:/qdrant/storage
+    networks:
+      - my-net
+  
+  ollama:
+    image: ollama/ollama
+    volumes:
+      - ./ollama:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ports:
+      - '11434:11434'
+    networks:
+      - my-net
+
+  python:
+    build:
+      context: .
+    environment:
+      - OLLAMA_URL=ollama
+      - QDRANT_URL=qdrant
+      - OLLAMA_LLM=llama3.2
+      - OLLAMA_EMBEDDING=rjmalagon/gte-qwen2-1.5b-instruct-embed-f16
+      - OLLAMA_TRANSLATE=thinkverse/towerinstruct
+    volumes:
+      - ./data:/app/data
+      - ./ml:/app/ml
+    networks:
+      - my-net
