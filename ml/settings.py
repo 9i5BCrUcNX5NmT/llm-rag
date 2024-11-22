@@ -4,11 +4,11 @@ def init():
     # vars
     ollama_url = (
         # "http://localhost:11434"
-        "https://" + os.environ.get("OLLAMA_URL")
+        os.environ.get("OLLAMA_URL")
     )
     qdrant_url = (
         # "http://localhost:6333"
-        "https://" + os.environ.get("QDRANT_URL")
+        os.environ.get("QDRANT_URL")
     )
     # qdrant_url = "opossum-accurate-chipmunk.ngrok-free.app"
     collection_name = "Hack"

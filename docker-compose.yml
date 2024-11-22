@@ -31,7 +31,7 @@ services:
     build:
       context: .
     environment:
-      - OLLAMA_URL=ollama
+      - OLLAMA_URL=https://ollama
       - QDRANT_URL=qdrant
       - OLLAMA_LLM=llama3.2
       - OLLAMA_EMBEDDING=rjmalagon/gte-qwen2-1.5b-instruct-embed-f16
@@ -41,3 +41,6 @@ services:
       - ./ml:/app/ml
     networks:
       - my-net
+    depends_on:
+      - ollama
+      - qdrant
