@@ -31,7 +31,7 @@ services:
     build:
       context: .
     environment:
-      - OLLAMA_URL=https://ollama
+      - OLLAMA_URL=http://ollama:11434
       - QDRANT_URL=qdrant
       - OLLAMA_LLM=llama3.2
       - OLLAMA_EMBEDDING=rjmalagon/gte-qwen2-1.5b-instruct-embed-f16
@@ -39,6 +39,9 @@ services:
     volumes:
       - ./data:/app/data
       - ./ml:/app/ml
+    command: poetry run python ml/llm.py
+    ports:
+      - '8009:8009'
     networks:
       - my-net
     depends_on:

@@ -11,11 +11,11 @@ def init():
         os.environ.get("QDRANT_URL")
     )
     # qdrant_url = "opossum-accurate-chipmunk.ngrok-free.app"
-    collection_name = "Hack"
+    collection_name = "Data"
     llm_model_name = os.environ.get("OLLAMA_LLM")
     embed_model_name = os.environ.get("OLLAMA_EMBEDDING")
 
-    global embed_model, llm_model, vector_store
+    global embed_model, llm_model, vector_store, client
 
     # ollama
     from llama_index.embeddings.ollama import OllamaEmbedding

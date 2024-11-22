@@ -27,6 +27,3 @@ CMD [ "poetry", "run", "python", "ml/install_ollama_llm.py" ]
 
 # Загрузка данных в векторную бд
 CMD [ "poetry", "run", "python", "ml/load.py" ]
-
-# Запуск сервера
-CMD [ "poetry", "run", "python", "ml/load.py" ]
